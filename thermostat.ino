@@ -1,6 +1,7 @@
 #include <dht11.h>
 
-#define DHT11PIN 7 // Analog pin A0
+// Do not wire a resistor between the power pin for the temp sensor
+#define DHT11PIN 7 // Digital pin 7 for the sensor signal
 #define CONTROL_PIN 2 // Digital pin 2 for controlling the transistor
 
 dht11 DHT11;
@@ -21,7 +22,9 @@ void loop() {
   Serial.print("Temperature (C): ");
   Serial.println(temperature);
 
-  if (temperature > 20) {
+  // You can adjust the temperature to test but the idea
+  // is to have the fan turn on when the temp hits certain threshold
+  if (temperature > 25) {
     digitalWrite(CONTROL_PIN, HIGH); // Turn ON the transistor
   } else {
     digitalWrite(CONTROL_PIN, LOW); // Turn OFF the transistor
